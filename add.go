@@ -8,6 +8,7 @@ import (
 
 const MODULE_NAME = "user"
 const OBJECT_LOGIN = "login"
+const TABLE_NAME = "session"
 
 func Add(h *model.Handlers) (s *Session, err string) {
 
@@ -29,9 +30,9 @@ func Add(h *model.Handlers) (s *Session, err string) {
 		return
 	}
 
-	s.form = &model.Object{
+	s.Form = &model.Object{
 		ObjectName:      OBJECT_LOGIN,
-		Table:           "session",
+		Table:           TABLE_NAME,
 		NoAddObjectInDB: true,
 		Fields: []model.Field{
 			// {Name: "user", Legend: "Usuario", Input: input.Mail(), NotClearValueOnFormReset: true},
@@ -45,12 +46,16 @@ func Add(h *model.Handlers) (s *Session, err string) {
 			UpdateApi:    nil,
 			DeleteApi:    nil,
 		},
-		FrontHandler:               model.FrontendHandler{},
-		FormData:                   map[string]string{},
-		AlternativeValidateAdapter: s,
+		FrontHandler: model.FrontendHandler{},
+		FormData:     map[string]string{},
+		// AlternativeValidateAdapter: s,
 	}
 
-	h.AddObjects(s.form)
+	h.AddObjects(s.Form)
 
 	return s, ""
+}
+
+func (s Session) NameOfAuthHandler() string {
+	return s.Form.ObjectName
 }

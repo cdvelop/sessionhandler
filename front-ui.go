@@ -6,7 +6,7 @@ func (s *Session) UserInterface(opt ...string) string {
 
 	c := &model.TemplateModuleConfig{
 		Module:      s.Object.Module,
-		Form:        s.form,
+		Form:        s.Form,
 		AsideList:   nil,
 		ButtonLogin: true,
 	}
