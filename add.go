@@ -1,7 +1,6 @@
 package sessionhandler
 
 import (
-	"github.com/cdvelop/input"
 	"github.com/cdvelop/model"
 	"github.com/cdvelop/object"
 )
@@ -10,7 +9,7 @@ const MODULE_NAME = "user"
 const OBJECT_LOGIN = "login"
 const TABLE_NAME = "session"
 
-func Add(h *model.Handlers) (s *Session, err string) {
+func Add(h *model.Handlers, c Config) (s *Session, err string) {
 
 	s = &Session{}
 
@@ -29,16 +28,47 @@ func Add(h *model.Handlers) (s *Session, err string) {
 	if err != "" {
 		return
 	}
+	s.Config = c
+
+	var fields []model.Field
+	if c.FieldUser != nil {
+		// fmt.Println("** c.FieldUser.Name:", c.FieldUser.Name)
+		s.field_user = c.FieldUser.Name
+
+		s.FieldUser = &model.Field{
+			Name:                     "user",
+			Legend:                   c.FieldUser.Legend,
+			Input:                    c.FieldUser.Input,
+			NotRequiredInDB:          true,
+			Encrypted:                true,
+			NotClearValueOnFormReset: true,
+		}
+
+		fields = append(fields, *s.FieldUser)
+
+	}
+	if c.FieldPassword != nil {
+		// fmt.Println("** c.FieldPassword.Name:", c.FieldPassword.Name)
+		s.field_password = c.FieldPassword.Name
+
+		s.FieldPassword = &model.Field{
+			Name:                     "password",
+			Legend:                   c.FieldPassword.Legend,
+			Input:                    c.FieldPassword.Input,
+			NotRequiredInDB:          true,
+			Encrypted:                true,
+			NotClearValueOnFormReset: true,
+		}
+
+		fields = append(fields, *s.FieldPassword)
+	}
 
 	s.Form = &model.Object{
 		ObjectName:      OBJECT_LOGIN,
 		Table:           TABLE_NAME,
 		NoAddObjectInDB: true,
-		Fields: []model.Field{
-			// {Name: "user", Legend: "Usuario", Input: input.Mail(), NotClearValueOnFormReset: true},
-			{Name: "password", Legend: "Contraseña", Input: input.Rut("hide-typing"), NotClearValueOnFormReset: true},
-		},
-		Module: m,
+		Fields:          fields,
+		Module:          m,
 		BackHandler: model.BackendHandler{
 			BootResponse: nil,
 			CreateApi:    s,
