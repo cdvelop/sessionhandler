@@ -38,29 +38,65 @@ func (s Session) Create(u *model.User, params ...map[string]string) (err string)
 		}
 	}
 
-	res, err := s.ReadObjectsInDB(s.UserTableName, map[string]string{"WHERE": where})
+	data_db, err := s.ReadSyncDataDB(s.UserTableName, map[string]string{"WHERE": where})
 	if err != "" {
 		return this + err
 	}
 
-	if len(res) != 1 {
+	if len(data_db) != 1 {
 		err = this + "credenciales de acceso incorrectas"
 		return
 	}
 
-	for k, v := range res[0] {
-		params[0][k] = v
-	}
+	fmt.Println("DATA RECIBIDA:", params)
+
+	// for k, v := range res[0] {
+	// params[0][k] = v
+	// }
 	// fmt.Println("RESULTADO CONSULTA:", params)
+
+	// 1- CREAMOS EL OBJETO USUARIO
 
 	new_user := model.User{
 		Token:          token.BuildUniqueKey(16),
-		Id:             params[0][s.FieldID],
+		Id:             data_db[0][s.FieldID],
 		Ip:             u.Ip,
-		Name:           params[0][s.FieldName],
-		Area:           params[0][s.FieldArea],
-		AccessLevel:    params[0][s.FieldAccessLevel],
+		Name:           data_db[0][s.FieldName],
+		Area:           data_db[0][s.FieldArea],
+		AccessLevel:    data_db[0][s.FieldAccessLevel],
 		LastConnection: s.ToDay("2006-01-02 15:04:05"),
+	}
+
+	// fmt.Println("\nUSUARIO:", new_user)
+
+	// 2- CONVERTIMOS LA DATA EN BYTES JSON
+	encode_user, err := s.EncodeStruct(new_user)
+	if err != "" {
+		return this + err
+	}
+
+	//3- CIFRAMOS LA DATA DEL USUARIO
+	session_encode, err := s.CipherAdapter.Encrypt(encode_user)
+	if err != "" {
+		return this + err
+	}
+
+	//4- CREAMOS EL OBJETO SESIÓN DEL LADO DEL CLIENTE
+	new_session := SessionStore{
+		Id_session:     new_user.Id,
+		Session_status: "in",
+		Session_encode: session_encode,
+	}
+
+	//5- CONVERTIMOS A JSON LA SESIÓN
+	encode_session, err := s.EncodeStruct(new_session)
+	if err != "" {
+		return this + err
+	}
+
+	//6- CREAMOS UN NUEVO MAPA CON LA NUEVA SALIDA DE INFORMACIÓN
+	response := map[string]string{
+		"session": string(encode_session),
 	}
 
 	fmt.Println("\nnew_user:", new_user)
@@ -70,9 +106,12 @@ func (s Session) Create(u *model.User, params ...map[string]string) (err string)
 
 		return this + err
 	}
-	params[0]["boot_data"] = out
+	response["boot"] = out
 
-	// fmt.Println("\nBOOT DATA:", out)
+	//7- REMPLAZAMOS EL PRIMER ELEMENTO CON LA NUEVA INFORMACIÓN
+	params[0] = response
+
+	// fmt.Println("DATA ENVIADA:", params)
 
 	return
 }

@@ -4,12 +4,15 @@ import "github.com/cdvelop/model"
 
 type Session struct {
 	*model.Object
-	Form           *model.Object
-	Id_session     string `Legend:"Id"`
-	Session_status string `Legend:"Estado"`
-	Session_encode string `Legend:"Sesión"`
-
+	Form *model.Object
+	SessionStore
 	Config
+}
+
+type SessionStore struct {
+	Id_session     string `json:"i,omitempty" Legend:"Id"`
+	Session_status string `json:"s,omitempty" Legend:"Estado"`
+	Session_encode string `json:"e,omitempty" Legend:"Sesión"`
 }
 
 type Config struct {
