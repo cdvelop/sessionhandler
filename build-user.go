@@ -9,7 +9,7 @@ func (s Session) BuildUserFromStoreData(data []map[string]string) (u *model.User
 		return nil, this + "se esperaba un resultado"
 	}
 
-	s.Log("info DECODIFICAR USUARIO DATA:", data)
+	// s.Log("info DECODIFICAR USUARIO DATA:", data)
 
 	if encode_user, ok := data[0][s.Session_encode]; ok && encode_user != "" {
 		// s.Log("encode_user:", encode_user)
@@ -26,7 +26,7 @@ func (s Session) BuildUserFromStoreData(data []map[string]string) (u *model.User
 			return nil, this + err
 		}
 
-		s.Log("info USUARIO:", u.Name)
+		// s.Log("info USUARIO:", u.Name)
 
 	}
 

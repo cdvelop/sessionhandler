@@ -1,12 +1,14 @@
 package sessionhandler
 
-import "github.com/cdvelop/model"
+import (
+	"github.com/cdvelop/model"
+)
 
 type Session struct {
 	*model.Object
 	Form *model.Object
 	SessionStore
-	Config
+	*Config
 }
 
 type SessionStore struct {
@@ -20,11 +22,15 @@ type Config struct {
 	FieldUser     *model.Field
 	FieldPassword *model.Field
 
-	FieldID          string // ej: id_staff, id_user
-	FieldName        string //ej: staff_name, user_name
-	FieldArea        string //ej: staff_area, user_area
+	FieldID   string // ej: id_staff, id_user
+	FieldName string //ej: staff_name, user_name
+
+	FieldArea string            //ej: staff_area, user_area
+	AreasName map[string]string // areas del sistema key y su nombre
+
 	FieldAccessLevel string // ej: staff_credentials, user_level
 
 	field_user     string
 	field_password string
+	model.CookieExpiration
 }

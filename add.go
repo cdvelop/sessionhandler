@@ -9,7 +9,7 @@ const MODULE_NAME = "user"
 const OBJECT_LOGIN = "login"
 const TABLE_NAME = "session"
 
-func Add(h *model.Handlers, c Config) (s *Session, err string) {
+func Add(h *model.Handlers, c *Config) (s *Session, err string) {
 
 	s = &Session{}
 
@@ -71,7 +71,7 @@ func Add(h *model.Handlers, c Config) (s *Session, err string) {
 		Module:          m,
 		BackHandler: model.BackendHandler{
 			BootResponse: nil,
-			CreateApi:    s,
+			CreateApi:    nil,
 			ReadApi:      nil,
 			UpdateApi:    nil,
 			DeleteApi:    nil,
@@ -87,5 +87,5 @@ func Add(h *model.Handlers, c Config) (s *Session, err string) {
 }
 
 func (s Session) NameOfAuthHandler() string {
-	return s.Form.ObjectName
+	return OBJECT_LOGIN
 }
