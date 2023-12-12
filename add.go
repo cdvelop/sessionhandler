@@ -29,7 +29,7 @@ func Add(h *model.Handlers, c *Config) (s *Session, err string) {
 		return
 	}
 
-	s.HeaderAuthName = "Authentication"
+	s.HeaderAuthName = "Authorization"
 
 	s.Config = c
 
