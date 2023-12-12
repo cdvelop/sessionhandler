@@ -15,7 +15,7 @@ func (s Session) Checking(u *model.User, params []map[string]string) (user_db ma
 	for _, data := range params {
 
 		if s.FieldUser != nil {
-			s.Log("s.FieldUser.Name", s.FieldUser.Name)
+			// s.Log("s.FieldUser.Name", s.FieldUser.Name)
 			if value, exist := data[s.FieldUser.Name]; exist && value != "" {
 
 				where += and + s.field_user + ` = '` + value + `'`
@@ -24,7 +24,7 @@ func (s Session) Checking(u *model.User, params []map[string]string) (user_db ma
 		}
 
 		if s.FieldPassword != nil {
-			s.Log("s.FieldPassword.Name", s.FieldPassword.Name)
+			// s.Log("s.FieldPassword.Name", s.FieldPassword.Name)
 			if value, exist := data[s.FieldPassword.Name]; exist && value != "" {
 
 				where += and + s.field_password + ` = '` + value + `'`

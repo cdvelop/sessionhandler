@@ -5,6 +5,7 @@ import (
 )
 
 type Session struct {
+	HeaderAuthName string
 	*model.Object
 	Form *model.Object
 	SessionStore

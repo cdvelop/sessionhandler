@@ -28,6 +28,9 @@ func Add(h *model.Handlers, c *Config) (s *Session, err string) {
 	if err != "" {
 		return
 	}
+
+	s.HeaderAuthName = "Authentication"
+
 	s.Config = c
 
 	var fields []model.Field
