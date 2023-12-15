@@ -9,31 +9,29 @@ func (s Session) Checking(u *model.User, params []map[string]string) (user_db ma
 		return nil, this + "el numero de parámetros recibidos es incorrecto"
 	}
 
-	var where string
-	var and string
+	var where = map[string]string{}
 
 	for _, data := range params {
 
 		if s.FieldUser != nil {
 			// s.Log("s.FieldUser.Name", s.FieldUser.Name)
 			if value, exist := data[s.FieldUser.Name]; exist && value != "" {
-
-				where += and + s.field_user + ` = '` + value + `'`
-				and = ` AND `
+				where[s.field_user] = value
 			}
 		}
 
 		if s.FieldPassword != nil {
 			// s.Log("s.FieldPassword.Name", s.FieldPassword.Name)
 			if value, exist := data[s.FieldPassword.Name]; exist && value != "" {
-
-				where += and + s.field_password + ` = '` + value + `'`
-				and = ` AND `
+				where[s.field_password] = value
 			}
 		}
 	}
 
-	data_db, err := s.ReadSyncDataDB(s.UserTableName, map[string]string{"WHERE": where})
+	data_db, err := s.ReadSyncDataDB(model.ReadParams{
+		FROM_TABLE:    s.UserTableName,
+		WHERE:         where,
+		AND_CONDITION: true})
 	if err != "" {
 		return nil, this + err
 	}
