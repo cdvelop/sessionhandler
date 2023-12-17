@@ -14,7 +14,7 @@ type Session struct {
 
 type SessionStore struct {
 	Id_session     string `json:"i,omitempty" Legend:"Id"`
-	Session_status string `json:"s,omitempty" Legend:"Estado"`
+	Session_number string `json:"s,omitempty" Legend:"Numero de Sesión" Unique:"true"`
 	Session_encode string `json:"e,omitempty" Legend:"Sesión"`
 }
 

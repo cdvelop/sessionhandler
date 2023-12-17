@@ -9,19 +9,19 @@ const MODULE_NAME = "user"
 const OBJECT_LOGIN = "login"
 const TABLE_NAME = "session"
 
-func Add(h *model.Handlers, c *Config) (s *Session, err string) {
+func Add(h *model.MainHandler, c *Config) (s *Session, err string) {
 
 	s = &Session{}
 
 	m := &model.Module{
-		ModuleName: MODULE_NAME,
-		Title:      "Ingreso",
-		IconID:     "icon-home",
-		UI:         s,
-		Areas:      map[string]string{},
-		Objects:    []*model.Object{},
-		Inputs:     []*model.Input{},
-		Handlers:   h,
+		ModuleName:  MODULE_NAME,
+		Title:       "Ingreso",
+		IconID:      "icon-home",
+		UI:          s,
+		Areas:       map[string]string{},
+		Objects:     []*model.Object{},
+		Inputs:      []*model.Input{},
+		MainHandler: h,
 	}
 
 	err = object.AddToHandlerFromStructs(m, s, h)
@@ -84,11 +84,11 @@ func Add(h *model.Handlers, c *Config) (s *Session, err string) {
 		// AlternativeValidateAdapter: s,
 	}
 
-	h.AddObjects(s.Form)
+	h.AddModules(s.Form.Module)
 
 	return s, ""
 }
 
-func (s Session) NameOfAuthHandler() string {
+func (s Session) SessionHandlerName() string {
 	return OBJECT_LOGIN
 }
