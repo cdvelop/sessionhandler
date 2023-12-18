@@ -84,7 +84,7 @@ func Add(h *model.MainHandler, c *Config) (s *Session, err string) {
 		// AlternativeValidateAdapter: s,
 	}
 
-	h.AddModules(s.Form.Module)
+	h.MainHandlerAddModules(s.Form.Module)
 
 	return s, ""
 }
