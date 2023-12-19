@@ -19,7 +19,6 @@ func Add(h *model.MainHandler, c *Config) (s *Session, err string) {
 		IconID:      "icon-home",
 		UI:          s,
 		Areas:       map[string]string{},
-		Objects:     []*model.Object{},
 		Inputs:      []*model.Input{},
 		MainHandler: h,
 	}
@@ -84,7 +83,9 @@ func Add(h *model.MainHandler, c *Config) (s *Session, err string) {
 		// AlternativeValidateAdapter: s,
 	}
 
-	h.MainHandlerAddModules(s.Form.Module)
+	m.AddObjectsToModule(s.Form)
+
+	h.AddModules(s.Form.Module)
 
 	return s, ""
 }
