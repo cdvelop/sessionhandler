@@ -3,8 +3,8 @@ module github.com/cdvelop/sessionhandler
 go 1.20
 
 require (
-	github.com/cdvelop/model v0.0.106
-	github.com/cdvelop/object v0.0.65
+	github.com/cdvelop/model v0.0.107
+	github.com/cdvelop/object v0.0.66
 )
 
 require (

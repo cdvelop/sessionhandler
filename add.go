@@ -38,12 +38,11 @@ func Add(h *model.MainHandler, c *Config) (s *Session, err string) {
 		s.field_user = c.FieldUser.Name
 
 		s.FieldUser = &model.Field{
-			Name:                     "user",
-			Legend:                   c.FieldUser.Legend,
-			Input:                    c.FieldUser.Input,
-			NotRequiredInDB:          true,
-			Encrypted:                true,
-			NotClearValueOnFormReset: true,
+			Name:            "user",
+			Legend:          c.FieldUser.Legend,
+			Input:           c.FieldUser.Input,
+			NotRequiredInDB: true,
+			Encrypted:       true,
 		}
 
 		fields = append(fields, *s.FieldUser)
@@ -54,12 +53,11 @@ func Add(h *model.MainHandler, c *Config) (s *Session, err string) {
 		s.field_password = c.FieldPassword.Name
 
 		s.FieldPassword = &model.Field{
-			Name:                     "password",
-			Legend:                   c.FieldPassword.Legend,
-			Input:                    c.FieldPassword.Input,
-			NotRequiredInDB:          true,
-			Encrypted:                true,
-			NotClearValueOnFormReset: true,
+			Name:            "password",
+			Legend:          c.FieldPassword.Legend,
+			Input:           c.FieldPassword.Input,
+			NotRequiredInDB: true,
+			Encrypted:       true,
 		}
 
 		fields = append(fields, *s.FieldPassword)
