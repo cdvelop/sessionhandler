@@ -1,8 +1,8 @@
 github.com/cdvelop/input v0.0.83 h1:GNtOgYFwS/PVjePEDGGiiNP9jn/bT2K80oHQ0ea2jK4=
-github.com/cdvelop/model v0.0.113 h1:ViVk7o+pOGi8Y6x9TADLoxsUoYZxcWiVZjpOg5EGg58=
-github.com/cdvelop/model v0.0.113/go.mod h1:cYJNxbv1WV/aDgiVPV9VXs8LrbF8+0nU+X+KfSevyzw=
-github.com/cdvelop/object v0.0.71 h1:SypnFZJ49ZKwEk5TdU0xx0qxQ9FxL7+I76FLeOk5CCQ=
-github.com/cdvelop/object v0.0.71/go.mod h1:Q9+ppIdisELzJwpY279AQ0Vn5rUceooRoM3lX8le0s4=
+github.com/cdvelop/model v0.0.115 h1:YuQYowFCEdSbLLIeB3uLZ7Lex6YAzGX7LRjeVgBLFac=
+github.com/cdvelop/model v0.0.115/go.mod h1:cYJNxbv1WV/aDgiVPV9VXs8LrbF8+0nU+X+KfSevyzw=
+github.com/cdvelop/object v0.0.72 h1:QbyXkny+EqFPMZoDUSjCT0wpUfiG//g5mPHK8C/w7Hw=
+github.com/cdvelop/object v0.0.72/go.mod h1:mDJNuU3pHAV+sr4hraRppd3OLlOnt5rlfUe5czp4Ihs=
 github.com/cdvelop/strings v0.0.9 h1:yDh2msl3EQja0dHw+oOHfD9ymQMa50KakKTkjsXDnvw=
 github.com/cdvelop/strings v0.0.9/go.mod h1:zNexDeXHRETbMmlmNThQeM7ksRsvzrphsCfwuSxaURk=
 github.com/cdvelop/structs v0.0.1 h1:9H4JUJ/dK1zaUOpIgay4xZpP3O/Jh991nErccKknKZ8=
