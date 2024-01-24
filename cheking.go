@@ -28,7 +28,7 @@ func (s Session) Checking(u *model.User, params []map[string]string) (user_db ma
 		}
 	}
 
-	data_db, err := s.ReadSyncDataDB(model.ReadParams{
+	data_db, err := s.ReadSyncDataDB(&model.ReadParams{
 		FROM_TABLE:    s.UserTableName,
 		WHERE:         []map[string]string{where},
 		AND_CONDITION: true})
